@@ -31,44 +31,22 @@ def build_graph(filename):
     # add edges
     for from_vert, to_vert, weight in edges:
         g.add_edge(from_vert, to_vert, weight)
+        # print("edges: ", from_vert, to_vert, weight)
         
     
 
     print("# Vertices: ", len(g.get_vertices()))
+    print("# Edges: ", g.get_all_edges())
     print("The edges are: ")
     for v in g:
         for w in v.get_neighbors():
-            # print("( %s , %s )" % (v.get_id(), w.get_id()))
             print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
 
-filename = 'graph_data.txt'
-# filename = sys.argv[1]
+    
+# filename = 'graph_data.txt'
+filename = sys.argv[1]
 data = read_file(filename)
-# print(data[1].split(','))
 build_graph(filename)
 
 
-def output_result(graph_data):
-    """Print out the Graph in a formated order"""
-    pass
 
-
-# Driver code
-
-
-if __name__ == "__main__":
-
-    pass
-
-
-
-
-"""
-# Vertices: 4
-# Edges: 4
-Edge List:
-(1,2,10)
-(1,4,5)
-(2,3,5)
-(2,4,7)
-"""

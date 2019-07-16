@@ -85,7 +85,7 @@ class Graph:
             raise ValueError("No vertex found!")
 
     def add_edge(self, key1, key2, weight=0):
-        """Add an edge from vertex with key `key1` to vertex with key `key2` with a cost."""
+        """Add an edge from vertex with key `key1` to vertex with key `key2` with a weight."""
         if key1 not in self.vert_dict or key2 not in self.vert_dict:
             # add it - or return an error (choice is up to you).
             raise ValueError("One of the key doesn't exist!")

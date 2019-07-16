@@ -88,7 +88,7 @@ class Graph:
         """Add an edge from vertex with key `key1` to vertex with key `key2` with a cost."""
         if key1 not in self.vert_dict or key2 not in self.vert_dict:
             # add it - or return an error (choice is up to you).
-            raise ValueError("One of the key doesnt exist!")
+            raise ValueError("One of the key doesn't exist!")
         else:
             # edge by making key2 a neighbor of key1
             # and using the addNeighbor method of the Vertex class.

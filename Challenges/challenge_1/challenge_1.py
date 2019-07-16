@@ -18,31 +18,34 @@ def build_graph(filename):
     data = read_file(filename)
     # second line in the txt file is the vertices
     vertices_list = data[1].split(',')
+    # add vertices
     for vertex in vertices_list:
         g.add_vertex(vertex)
 
-    print("# vertices: ", g.get_vertices())
-    # Add connections (non weighted edges for now)
-    # g.add_edge("Friend 1", "Friend 2")
-    # g.add_edge("Friend 2", "Friend 3")
+    # from third line in the data file all are the edges
+    edges = []
+    for edge in data[2:]:
+        # remove the parentheses and split by comma
+        # think about how to add 0 if weight not given
+        edges.append(edge.strip("()").split(','))
+    # add edges
+    for from_vert, to_vert, weight in edges:
+        g.add_edge(from_vert, to_vert, weight)
+        
+    
 
-    # # Challenge 1: Output the vertices & edges
-    # # Print vertices
-    # print("The vertices are: ", g.get_vertices(), "\n")
+    print("# Vertices: ", len(g.get_vertices()))
+    print("The edges are: ")
+    for v in g:
+        for w in v.get_neighbors():
+            # print("( %s , %s )" % (v.get_id(), w.get_id()))
+            print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
 
-    # # Print edges
-    # print("The edges are: ")
-    # for v in g:
-    #     for w in v.get_neighbors():
-    #         # print("( %s , %s )" % (v.get_id(), w.get_id()))
-    #         print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
-
-    # print("edges: ", g.get_all_edges())
 filename = 'graph_data.txt'
 # filename = sys.argv[1]
 data = read_file(filename)
 # print(data[1].split(','))
-print(build_graph(filename),"")
+build_graph(filename)
 
 
 def output_result(graph_data):

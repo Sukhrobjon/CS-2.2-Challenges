@@ -27,26 +27,31 @@ def build_graph(filename):
     for edge in data[2:]:
         # remove the parentheses and split by comma
         # think about how to add 0 if weight not given
-        edges.append(edge.strip("()").split(','))
+        edge = tuple(edge.strip("()").split(','))
+        edges.append(edge)
     # add edges
-    for from_vert, to_vert, weight in edges:
-        g.add_edge(from_vert, to_vert, weight)
+    # for from_vert, to_vert, weight in edges:
+    #     g.add_edge(from_vert, to_vert, weight)
         # print("edges: ", from_vert, to_vert, weight)
+    for edge in edges:
+        g.add_edge(*edge)
         
     
 
     print("# Vertices: ", len(g.get_vertices()))
     print("# Edges: ", g.get_all_edges())
-    print("The edges are: ")
+    print("The Edge List: ")
     for v in g:
         for w in v.get_neighbors():
             print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
 
     
-# filename = 'graph_data.txt'
+# with_weight = 'graph_data.txt'
+# no_weight = 'graph_no_weight.txt'
 filename = sys.argv[1]
 data = read_file(filename)
 build_graph(filename)
 
 
-
+if __name__ == "__main__":
+    pass

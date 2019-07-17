@@ -84,16 +84,17 @@ class Graph:
         else:
             raise ValueError("No vertex found!")
 
-    def add_edge(self, key1, key2, weight=0):
+    def add_edge(self, from_vert, to_vert, weight=0):
         """Add an edge from vertex with key `key1` to vertex with key `key2` with a weight."""
-        if key1 not in self.vert_dict or key2 not in self.vert_dict:
+        if from_vert not in self.vert_dict or to_vert not in self.vert_dict:
             # add it - or return an error (choice is up to you).
             raise ValueError("One of the key doesn't exist!")
         else:
             # edge by making key2 a neighbor of key1
             # and using the addNeighbor method of the Vertex class.
             # Hint: the vertex f is stored in self.vert_dict[f].
-            self.vert_dict[key1].add_neighbor(self.vert_dict[key2])
+            self.vert_dict[from_vert].add_neighbor(self.vert_dict[to_vert], weight)
+            # self.vert_dict[to_vert].add_neighbor(self.vert_dict[from_vert], weight)
 
     def get_vertices(self):
         """Return all the vertices in the graph"""

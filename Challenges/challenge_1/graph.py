@@ -22,7 +22,7 @@ class Vertex(object):
         if vertex not in self.neighbors.keys():
             self.neighbors[vertex] = weight
         else:
-            raise ValueError("The vertex already exists!")
+            raise ValueError(f"The vertex: {vertex} already exists!")
 
 
     def __str__(self):

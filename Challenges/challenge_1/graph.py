@@ -16,18 +16,16 @@ class Vertex(object):
         self.id = vertex
         self.neighbors = {}
 
-    def add_neighbor(self, vertex, weight=0):
-        """Add a neighbor along a weighted edge."""
-        
-        if vertex not in self.neighbors.keys():
-            self.neighbors[vertex] = weight
-        else:
-            raise ValueError(f"The vertex: {vertex} already exists!")
-
 
     def __str__(self):
-        """Output the list of neighbors of this vertex."""
-        return f'{self.id} adjacent to {[x.id for x in self.neighbors]}'
+            """Output the list of neighbors of this vertex."""
+            return f'{self.id} adjacent to {[x.id for x in self.neighbors]}'
+
+            
+    def add_neighbor(self, vertex, weight=0):
+        """Add a neighbor along a weighted edge."""
+        self.neighbors[vertex] = weight
+
 
     def get_neighbors(self):
         """Return the neighbors of this vertex."""

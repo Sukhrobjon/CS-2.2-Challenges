@@ -107,8 +107,18 @@ class Graph:
             sum += v.get_edges()
         return sum
         
+    def bfs_search(self, from_vertex, to_vertex):
+        """Search for the shortest path from vertex a to b
+        
+        Args:
+            from_vertex (str) : starting point on the graph
+            to_vertex (str) : the distanation or end of the path
 
-    
+        Returns:
+            shortest path (int) : the shortest number of edges between two vertices
+        """
+
+
 
 
 # Driver code

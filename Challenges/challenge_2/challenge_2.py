@@ -10,7 +10,7 @@ def read_file(path):
         data = f.read().split('\n')
     return data
 
-def build_graph(filename):
+def build_graph(filename, from_vertex, to_vertex):
     """Build a graph from given information"""
     
     g = Graph()
@@ -44,13 +44,18 @@ def build_graph(filename):
     for v in g:
         for w in v.get_neighbors():
             print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
+    shortest_path = g.shortest_path(from_vertex, to_vertex)
 
+    print("shortest path:", shortest_path)
     
 # with_weight = 'graph_data.txt'
 # no_weight = 'graph_no_weight.txt'
 filename = sys.argv[1]
+from_vertex = sys.argv[2]
+to_vertex = sys.argv[3]
+
 data = read_file(filename)
-build_graph(filename)
+build_graph(filename, from_vertex, to_vertex)
 
 
 if __name__ == "__main__":

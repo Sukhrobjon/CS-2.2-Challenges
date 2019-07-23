@@ -4,16 +4,17 @@
 A helper class for the Graph class that defines vertices and vertex neighbors.
 """
 
+from queue import Queue
 
 class Vertex(object):
 
-    def __init__(self, vertex):
+    def __init__(self, data):
         """Initialize a vertex and its neighbors.
         neighbors: set of vertices adjacent to self,
         stored in a dictionary with key = vertex,
         value = weight of edge between self and neighbor.
         """
-        self.id = vertex
+        self.data = data
         self.neighbors = {}
 
     def add_neighbor(self, vertex, weight=0):
@@ -27,7 +28,7 @@ class Vertex(object):
 
     def __str__(self):
         """Output the list of neighbors of this vertex."""
-        return f'{self.id} adjacent to {[x.id for x in self.neighbors]}'
+        return f'{self.data} adjacent to {[x.data for x in self.neighbors]}'
 
     def get_neighbors(self):
         """Return the neighbors of this vertex."""
@@ -35,7 +36,7 @@ class Vertex(object):
 
     def get_id(self):
         """Return the id of this vertex."""
-        return self.id
+        return self.data
 
     def get_edge_weight(self, vertex):
         """Return the weight of this edge."""
@@ -107,8 +108,8 @@ class Graph:
             sum += v.get_edges()
         return sum
         
-    def bfs_search(self, from_vertex, to_vertex):
-        """Search for the shortest path from vertex a to b
+    def shortest_path(self, from_vertex, to_vertex):
+        """Search for the shortest path from vertex a to b using Breadth first search
         
         Args:
             from_vertex (str) : starting point on the graph
@@ -117,10 +118,46 @@ class Graph:
         Returns:
             shortest path (int) : the shortest number of edges between two vertices
         """
+        # 
+        
+        queue = Queue(maxsize=len(self.get_vertices()))
+        # enqueue the start vertex
+        queue.put(self.vert_dict[from_vertex])
+        # keep track of visited vertices with its predessors 
+        # the keys are the unique vertices and value is the parent to the associated key 
+        # the start node's parent is none
+        parent_pointers = {self.vert_dict[from_vertex].data: None}
 
+        while not queue.empty():
+            # dequeue 1st vertex in the queue
+            current_vertex = queue.get()
+            # check if it is the target
+            if current_vertex == to_vertex:
+                break
+            for neighbor in current_vertex.get_neighbors():
 
+                if neighbor not in parent_pointers:
+                    new_vertex = self.vert_dict[neighbor]
+                    queue.put(new_vertex)
+                    
+                    # add the new vertex to the parent pointers 
+                    parent_pointers[new_vertex] = current_vertex
+        
+        # Cover case for disjointed graph
+        if to_vertex not in parent_pointers:
+            return
 
+        path = [self.vert_dict[to_vertex]]
 
+        next_vertex = parent_pointers[to_vertex]
+
+        while next_vertex is not None:
+            path.append(next_vertex)
+            next_vertex = parent_pointers[next_vertex.data]
+
+        path.reverse()
+
+        return path
 # Driver code
 
 
@@ -149,8 +186,7 @@ if __name__ == "__main__":
     print("The edges are: ")
     for v in g:
         for w in v.get_neighbors():
-            # print("( %s , %s )" % (v.get_id(), w.get_id()))
-            print(f'{v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)}')
+            print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
 
     print("edges: ", g.get_all_edges())
 

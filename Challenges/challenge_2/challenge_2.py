@@ -29,21 +29,19 @@ def build_graph(filename, from_vertex, to_vertex):
         # think about how to add 0 if weight not given
         edge = tuple(edge.strip("()").split(','))
         edges.append(edge)
+    
     # add edges
-    # for from_vert, to_vert, weight in edges:
-    #     g.add_edge(from_vert, to_vert, weight)
-        # print("edges: ", from_vert, to_vert, weight)
     for edge in edges:
+        # unpack the edge tuple
         g.add_edge(*edge)
         
     
 
     print("# Vertices: ", len(g.get_vertices()))
-    print("# Edges: ", g.get_all_edges())
+    print("# Edges: ", g.num_edges)
     print("The Edge List: ")
-    for v in g:
-        for w in v.get_neighbors():
-            print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
+    for edge in g.get_edges():
+        print(edge)
     shortest_path = g.shortest_path(from_vertex, to_vertex)
     # shortest_path = g.bfs_two(from_vertex, to_vertex)
     print("shortest path:", shortest_path)

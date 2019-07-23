@@ -32,7 +32,7 @@ class Vertex(object):
         return self.neighbors.keys()
 
     def get_id(self):
-        """Return the id of this vertex."""
+        """Return the data of this vertex."""
         return self.data
 
     def get_edge_weight(self, vertex):
@@ -101,22 +101,23 @@ class Graph:
 
         if reversed_edges in self.edge_list and self.directed is True:
             return 
-        
+        from_vert_obj = self.vert_dict[from_vertex]
+        to_vert_obj = self.vert_dict[to_vertex]
         # add the to_vertex as a neighbor of from_vertex
-        self.vert_dict[from_vertex].add_neighbor(to_vertex, weight)
+        from_vert_obj.add_neighbor(to_vert_obj, weight)
         self.edge_list.append((from_vertex, to_vertex, weight))
         self.num_edges += 1
 
         # add the edges in both ways to be accessible if graph is undirected
         if self.directed == False:
-            self.vert_dict[to_vertex].add_neighbor(from_vertex, weight)
+            to_vert_obj.add_neighbor(from_vert_obj, weight)
 
             
     def get_vertices(self):
         """Return all the vertices in the graph"""
         return self.vert_dict.keys()
 
-    def get_all_edges(self):
+    def get_edges(self):
         """Return number of all edges in the graph"""
         return self.edge_list
         
@@ -132,48 +133,55 @@ class Graph:
         """
         # 
         
+        if from_vertex not in self.vert_dict or to_vertex not in self.vert_dict:
+            raise KeyError("One of the given vertices does not exist in graph!")
+
+        # if the vertices are the same
+        if from_vertex == to_vertex:
+            vert_obj = self.vert_dict[from_vertex]
+            return [vert_obj.data], 0
+        
+        current_vertex = self.vert_dict[from_vertex]
+        seen_vertex = set()
         queue = Queue(maxsize=len(self.get_vertices()))
         
-        # enqueue the start vertex
-        queue.put(self.vert_dict[from_vertex])
-        # keep track of visited vertices with its predessors 
-        # the keys are the unique vertices and value is the parent to the associated key 
-        # the start node's parent is none
-        parent_pointers = {self.vert_dict[from_vertex].data: None}
-        # print(f'parent pointer: {parent_pointers}')
-        while not queue.empty():
-            # dequeue 1st vertex in the queue
-            # print(f'queue: {list(queue.queue)}')
-            current_vertex = queue.get()
-            # check if it is the target
-            if current_vertex.data == to_vertex:
-                break
-            print(f"current vertex: {current_vertex.data}, to vertex: {to_vertex}")
-            for neighbor in current_vertex.get_neighbors():
-
-                if neighbor not in parent_pointers:
-                    print(f'neighor: {neighbor}')
-                    new_vertex = self.vert_dict[neighbor.data]
-                    queue.put(new_vertex)
-                    
-                    # add the new vertex to the parent pointers 
-                    parent_pointers[new_vertex.data] = current_vertex
+        # start the traversal
+        queue.put(current_vertex)
+        seen_vertex.add(current_vertex.data)
+        print(f'current vertex data: {current_vertex.data}')
         
-        # Cover case for disjointed graph
-        if to_vertex not in parent_pointers:
-            return "infinity"
+        path = []
+        path_found = False
+        parent = None
+        current_vertex.parent = parent
+        
+        while queue:
+            current_vertex = queue.get()
+            path.append(current_vertex)
 
-        path = [self.vert_dict[to_vertex]]
+            # check if destination found
+            if current_vertex.data == to_vertex:
+                path_found = True
+                break
 
-        next_vertex = parent_pointers[to_vertex]
+            for neighbor in current_vertex.neighbors:
 
-        while next_vertex is not None:
-            path.append(next_vertex)
-            next_vertex = parent_pointers[next_vertex.data]
+                if neighbor.data not in seen_vertex:
+                    queue.put(neighbor)
+                    seen_vertex.add(neighbor.data)
 
-        path.reverse()
-        print(f'parent pointer: {parent_pointers}')
-        return path
+                    neighbor.parent = current_vertex
+
+        if path_found:
+            path = []
+
+            while current_vertex is not None:
+                path.append(current_vertex.data)
+                current_vertex = current_vertex.parent
+
+            return path[::-1], len(path) - 1
+
+        return [], -1
 
     def bfs_two(self, start, goal):
         explored = []

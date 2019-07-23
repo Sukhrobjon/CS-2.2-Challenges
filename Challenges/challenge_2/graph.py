@@ -183,34 +183,7 @@ class Graph:
 
         return [], -1
 
-    def bfs_two(self, start, goal):
-        explored = []
-
-        queue = [[self.vert_dict[start]]]
-
-        if start == goal:
-            return f"you are here!"
-        while queue:
-            path = queue.pop(0)
-
-            node = path[-1]
-
-            if node.data not in explored:
-                neighbors = node.get_neighbors()
-                
-                for neighbor in neighbors:
-                    new_path = list(path)
-                    print(f"new path: {new_path[0].data}")
-                
-                    print(f'neighbor: {neighbor.data}')
-                    new_path.append(neighbor)
-                    queue.append(new_path)
-                    if neighbor == goal:
-                        return new_path
-                    
-                # mark node as explored
-                explored.append(node)
-        return "not found"
+    
 # Driver code
 
 

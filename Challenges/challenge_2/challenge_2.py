@@ -45,17 +45,17 @@ def build_graph(filename, from_vertex, to_vertex):
         for w in v.get_neighbors():
             print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
     shortest_path = g.shortest_path(from_vertex, to_vertex)
-
+    # shortest_path = g.bfs_two(from_vertex, to_vertex)
     print("shortest path:", shortest_path)
     
 # with_weight = 'graph_data.txt'
 # no_weight = 'graph_no_weight.txt'
 filename = sys.argv[1]
-from_vertex = sys.argv[2]
-to_vertex = sys.argv[3]
+# from_vertex = sys.argv[2]
+# to_vertex = sys.argv[3]
 
 data = read_file(filename)
-build_graph(filename, from_vertex, to_vertex)
+build_graph(filename, '1', '5')
 
 
 if __name__ == "__main__":

@@ -37,14 +37,16 @@ def build_graph(filename, from_vertex, to_vertex):
         
     
 
-    print("# Vertices: ", len(g.get_vertices()))
-    print("# Edges: ", g.num_edges)
-    print("The Edge List: ")
-    for edge in g.get_edges():
-        print(edge)
+    # print("# Vertices: ", len(g.get_vertices()))
+    # print("# Edges: ", g.num_edges)
+    # print("The Edge List: ")
+    # for edge in g.get_edges():
+    #     print(edge)
+    
     shortest_path = g.shortest_path(from_vertex, to_vertex)
-    # shortest_path = g.bfs_two(from_vertex, to_vertex)
-    print("shortest path:", shortest_path)
+    
+    print("Verticies in shortest path:", *shortest_path[0])
+    print(f"Number of edges in shortest path: {shortest_path[1]}")
     
 # with_weight = 'graph_data.txt'
 # no_weight = 'graph_no_weight.txt'

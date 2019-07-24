@@ -148,7 +148,7 @@ class Graph:
         # start the traversal
         queue.put(current_vertex)
         seen_vertex.add(current_vertex.data)
-        print(f'current vertex data: {current_vertex.data}')
+    
         
         path = []
         path_found = False
@@ -180,7 +180,7 @@ class Graph:
                 current_vertex = current_vertex.parent
 
             return path[::-1], len(path) - 1
-
+        # if there is no path from source to destination return -1
         return [], -1
 
     

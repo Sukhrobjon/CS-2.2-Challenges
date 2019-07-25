@@ -136,13 +136,16 @@ class Graph:
         if from_vertex not in self.vert_dict or to_vertex not in self.vert_dict:
             raise KeyError("One of the given vertices does not exist in graph!")
 
-        # if the vertices are the same
+        # check if you are at the location
         if from_vertex == to_vertex:
             vert_obj = self.vert_dict[from_vertex]
             return [vert_obj.data], 0
-        
+       
+        # grab the start location from graph
         current_vertex = self.vert_dict[from_vertex]
         seen_vertex = set()
+        parent_pointers = {}
+        # initialize the queue with size of number of verticies in the graph
         queue = Queue(maxsize=len(self.get_vertices()))
         
         # start the traversal
@@ -154,8 +157,11 @@ class Graph:
         path_found = False
         parent = None
         current_vertex.parent = parent
+        # alternative way of storing the references to parent  pointers
+        parent_pointers[current_vertex.data] = None
         
         while queue:
+            # dequeue the front element
             current_vertex = queue.get()
             path.append(current_vertex)
 
@@ -163,22 +169,22 @@ class Graph:
             if current_vertex.data == to_vertex:
                 path_found = True
                 break
-
+            # otherwise
             for neighbor in current_vertex.neighbors:
 
                 if neighbor.data not in seen_vertex:
                     queue.put(neighbor)
                     seen_vertex.add(neighbor.data)
-
                     neighbor.parent = current_vertex
-
+                    parent_pointers[neighbor.data] = current_vertex.data
         if path_found:
             path = []
 
             while current_vertex is not None:
                 path.append(current_vertex.data)
                 current_vertex = current_vertex.parent
-
+            
+            # print(f'parent pointers: {parent_pointers}')
             return path[::-1], len(path) - 1
         # if there is no path from source to destination return -1
         return [], -1

@@ -50,13 +50,13 @@ def build_graph(filename, from_vertex, to_vertex):
     
 # with_weight = 'graph_data.txt'
 # no_weight = 'graph_no_weight.txt'
-filename = sys.argv[1]
-from_vertex = sys.argv[2]
-to_vertex = sys.argv[3]
 
-data = read_file(filename)
-build_graph(filename, from_vertex, to_vertex)
 
 
 if __name__ == "__main__":
-    pass
+    filename = sys.argv[1]
+    from_vertex = sys.argv[2]
+    to_vertex = sys.argv[3]
+
+    data = read_file(filename)
+    build_graph(filename, from_vertex, to_vertex)

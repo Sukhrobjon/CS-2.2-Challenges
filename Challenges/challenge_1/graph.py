@@ -91,7 +91,7 @@ class Graph:
 
         if from_vertex not in self.vert_dict or to_vertex not in self.vert_dict:
             # add it - or return an error (choice is up to you).
-            raise ValueError("One of the key doesn't exist!")
+            raise ValueError(f"One of the key doesn't exist!{from_vertex}, {to_vertex}")
 
         # to handle the duplicate edges in undirected graph
         reversed_edges = (to_vertex, from_vertex, weight)

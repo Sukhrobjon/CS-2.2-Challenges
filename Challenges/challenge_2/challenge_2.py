@@ -34,22 +34,14 @@ def build_graph(filename, from_vertex, to_vertex):
     for edge in edges:
         # unpack the edge tuple
         g.add_edge(*edge)
-        
-    
 
-    # print("# Vertices: ", len(g.get_vertices()))
-    # print("# Edges: ", g.num_edges)
-    # print("The Edge List: ")
-    # for edge in g.get_edges():
-    #     print(edge)
     
     shortest_path = g.shortest_path(from_vertex, to_vertex)
     
     print("Verticies in shortest path:", *shortest_path[0])
     print(f"Number of edges in shortest path: {shortest_path[1]}")
     
-# with_weight = 'graph_data.txt'
-# no_weight = 'graph_no_weight.txt'
+
 
 
 

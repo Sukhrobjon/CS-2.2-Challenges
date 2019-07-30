@@ -58,6 +58,7 @@ class Graph:
         self.edge_list = []
         self.num_vertices = 0
         self.num_edges = 0
+        self.DEFAULT_WEIGHT = 0
         self.directed = directed
 
     def __iter__(self):
@@ -87,30 +88,37 @@ class Graph:
 
     def add_edge(self, from_vertex, to_vertex, weight=0):
         """Add an edge from vertex with key `key1` to vertex with key `key2` with a weight."""
-        
         if from_vertex == to_vertex:
             print(f'You cant add the vertex to itself!')
             return
 
         if from_vertex not in self.vert_dict or to_vertex not in self.vert_dict:
-            # add it - or return an error (choice is up to you).
-            raise ValueError("One of the key doesn't exist!")
-        
-        # to handle the duplicate edges in undirected graph
-        reversed_edges = (to_vertex, from_vertex, weight)
+            raise ValueError("One of the vertex doesn't exist!")
 
-        if reversed_edges in self.edge_list and self.directed is True:
-            return 
+        # assigning the weight
+        if weight is None:
+            weight = self.DEFAULT_WEIGHT
+        else:
+            weight = int(weight)
+
+        edge = (from_vertex, to_vertex, weight)
+        # handling duplicated edges in input file
+        if edge in self.get_edges():
+            raise ValueError("You can't add duplicated edges!")
+
         from_vert_obj = self.vert_dict[from_vertex]
         to_vert_obj = self.vert_dict[to_vertex]
-        # add the to_vertex as a neighbor of from_vertex
-        from_vert_obj.add_neighbor(to_vert_obj, weight)
-        self.edge_list.append((from_vertex, to_vertex, weight))
-        self.num_edges += 1
 
-        # add the edges in both ways to be accessible if graph is undirected
-        if self.directed == False:
+        if self.directed:  # directed graph
+            from_vert_obj.add_neighbor(to_vert_obj, weight)
+        else:
+            # connect the edges in both ways
+            from_vert_obj.add_neighbor(to_vert_obj, weight)
             to_vert_obj.add_neighbor(from_vert_obj, weight)
+
+        # add edges to unique edge_list
+
+        self.edge_list.append(edge)
 
             
     def get_vertices(self):
@@ -118,8 +126,12 @@ class Graph:
         return self.vert_dict.keys()
 
     def get_edges(self):
-        """Return number of all edges in the graph"""
-        return self.edge_list
+        """Returns all edges in the graph"""
+        edges = []
+        for v in self.vert_dict.values():
+            for w in v.neighbors:
+                edges.append((v.data, w.data, v.get_edge_weight(w)))
+        return edges
         
     def shortest_path(self, from_vertex, to_vertex):
         """Search for the shortest path from vertex a to b using Breadth first search
@@ -190,35 +202,3 @@ class Graph:
         return [], -1
 
     
-# Driver code
-
-
-if __name__ == "__main__":
-
-    # Challenge 1: Create the graph
-
-    g = Graph()
-
-    # Add your friends
-    g.add_vertex("Friend 1")
-    g.add_vertex("Friend 2")
-    g.add_vertex("Friend 3")
-
-    # ...  add all 10 including you ...
-
-    # Add connections (non weighted edges for now)
-    g.add_edge("Friend 1", "Friend 2")
-    g.add_edge("Friend 2", "Friend 3")
-
-    # Challenge 1: Output the vertices & edges
-    # Print vertices
-    print("The vertices are: ", g.get_vertices(), "\n")
-
-    # Print edges
-    print("The edges are: ")
-    for v in g:
-        for w in v.get_neighbors():
-            print(f'({v.get_id()}, {w.get_id()}, {v.get_edge_weight(w)})')
-
-    print("edges: ", g.get_all_edges())
-

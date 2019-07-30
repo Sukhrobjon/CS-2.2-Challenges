@@ -100,6 +100,7 @@ class Graph:
             return
         from_vert_obj = self.vert_dict[from_vertex]
         to_vert_obj = self.vert_dict[to_vertex]
+        
         # add the to_vertex as a neighbor of from_vertex
         from_vert_obj.add_neighbor(to_vert_obj, weight)
         self.edge_list.append((from_vertex, to_vertex, weight))

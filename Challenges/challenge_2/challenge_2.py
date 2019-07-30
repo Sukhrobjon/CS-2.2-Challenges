@@ -38,11 +38,9 @@ def build_graph(filename, from_vertex, to_vertex):
     
     shortest_path = g.shortest_path(from_vertex, to_vertex)
     
-    print("Verticies in shortest path:", *shortest_path[0])
+    print("Vertices in shortest path:",*shortest_path[0])
     print(f"Number of edges in shortest path: {shortest_path[1]}")
     
-
-
 
 
 if __name__ == "__main__":

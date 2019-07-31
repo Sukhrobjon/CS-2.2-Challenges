@@ -38,8 +38,11 @@ def build_graph(filename, from_vertex, to_vertex):
     
     shortest_path = g.shortest_path(from_vertex, to_vertex)
     
-    print("Vertices in shortest path:",*shortest_path[0])
-    print(f"Number of edges in shortest path: {shortest_path[1]}")
+    # print("Vertices in shortest path:",*shortest_path[0])
+    # print(f"Number of edges in shortest path: {shortest_path[1]}")
+    dfs_paths = g.dfs_paths(from_vertex, to_vertex)
+    print(f"There exists a path between vertex 1 and 5: {bool(dfs_paths)}")
+    print(f"Vertices in the path: {dfs_paths[::-1]}")
     
 
 

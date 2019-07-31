@@ -189,6 +189,7 @@ class Graph:
                     seen_vertex.add(neighbor.data)
                     neighbor.parent = current_vertex
                     parent_pointers[neighbor.data] = current_vertex.data
+        
         if path_found:
             path = []
 
@@ -201,4 +202,28 @@ class Graph:
         # if there is no path from source to destination return -1
         return [], -1
 
-    
+    def dfs_paths(self, from_vertex, to_vertex, visited=None):
+        if from_vertex not in self.vert_dict or to_vertex not in self.vert_dict:
+            raise KeyError(
+                "One of the given vertices does not exist in graph!")
+
+        # check if you are at the location
+        if from_vertex == to_vertex:
+            return [from_vertex]
+        
+        if visited is None:
+            visited = set()
+            
+        current_vertex = self.vert_dict[from_vertex]
+        visited.add(current_vertex.data)
+
+        for neighbor in current_vertex.neighbors:
+
+            if neighbor.data not in visited:
+                path = self.dfs_paths(neighbor.data, to_vertex, visited)
+                # print("after path updated")
+                if path:
+                    path.append(current_vertex.data)
+                    return path
+
+        return []

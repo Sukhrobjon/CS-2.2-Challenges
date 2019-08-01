@@ -214,8 +214,7 @@ class Graph:
         '''
         # check if starter node is in the graph
         if from_vertex not in self.vert_dict:
-            raise KeyError(
-                f"The vertex {from_vertex}, you entered doesn't exist in graph!")
+            raise KeyError(f"The vertex {from_vertex}, you entered doesn't exist in graph!")
 
         # we need a queue, set, and parent_pointer dict
         queue = Queue(maxsize=len(self.get_vertices()))
@@ -274,8 +273,7 @@ class Graph:
 
         # check if vertex has given depth level of connections
         if n_level > max_level:
-            raise ValueError(
-                f"Current vertex has maximum level of {max_level} connections!")
+            raise ValueError(f"Current vertex has maximum level of {max_level} connections!")
 
         for vertex in vertices:
             if vertices[vertex] == n_level:

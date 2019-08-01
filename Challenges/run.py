@@ -10,13 +10,33 @@ def main(filename):
 
     seperator = "==============================="
 
-    from_vertex = "4"
-    to_vertex = "1"
+    from_vertex = "1"
+    to_vertex = "5"
 
     # grab the edges and vertices from graph object
     g_edges = graph.edge_list
     g_vertices = graph.get_vertices()
 
+    # print(f'{seperator}Start{seperator}')
+
+    # print(f'Vertices: {g_vertices}')
+    # print(f'Number of Edges: {len(g_edges)}')
+    # print("The Edge List:")
+    # for edge in g_edges:
+    #     print(edge)
+
+    # print(f'{seperator}BFS order{seperator}')
+    # bfs_order = graph.breadth_first_search_traversal(from_vertex)
+    # print(bfs_order[0])
+
+    # print(f'{seperator}Shortest Path{seperator}')
+    # shortest_path = graph.find_shortest_path(from_vertex, to_vertex)
+    # print(f"Verticies in shortest path: {shortest_path[0]}")
+    # print(f"Number of edges in shortest path: {shortest_path[1]}")
+
+    # print(f'{seperator}N level connections{seperator}')
+    # print(graph.n_level_bfs(from_vertex, 1))
+    
     print(f'{seperator}DFS order traversal{seperator}')
     print((graph.dfs_recursive(from_vertex)))
 
@@ -27,6 +47,6 @@ def main(filename):
 
 
 if __name__ == "__main__":
-    # filename = sys.argv[1]
-    filename = 'inputs/directed_graph.txt'
+    # root_file = 'inputs/'
+    filename = sys.argv[1]
     main(filename)

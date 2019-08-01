@@ -130,6 +130,7 @@ class Graph:
                 edges.append((v.data, w.data, v.get_edge_weight(w)))
         return edges
 
+
     def find_shortest_path(self, from_vertex, to_vertex):
         """Search for the shortest path from vertex a to b using Breadth first search
         

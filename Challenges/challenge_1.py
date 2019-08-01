@@ -15,7 +15,7 @@ def main():
     g_edges = graph.edge_list
     g_vertices = graph.get_vertices()
 
-    print(f'{seperator}Start{seperator}')
+    print(f'{seperator} Challenge 1 {seperator}')
 
     print(f'Number of vertices: {len(g_vertices)}')
     print(f'Number of edges: {len(g_edges)}')
@@ -25,6 +25,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# 

@@ -201,86 +201,6 @@ class Graph:
         # if there is no path from source to destination return -1
         return ([], -1)
 
-    def breadth_first_search_traversal(self, from_vertex):
-        '''Traversing entire grapgh using breadth first search algorithm.
-        The algorithm adapted from: https://en.wikipedia.org/wiki/Breadth-first_search
-        
-        Args:
-            vertex (str): given vertex to find its all neighors 
-            
-
-        Returns:
-            bfs order (tuple): first item is all vertices in a bfs order
-                               second item is levels of other vertices from starting vertex
-        '''
-        # check if starter node is in the graph
-        if from_vertex not in self.vert_dict:
-            raise KeyError(f"The vertex {from_vertex}, you entered doesn't exist in graph!")
-
-        # we need a queue, set, and parent_pointer dict
-        queue = Queue(maxsize=len(self.get_vertices()))
-        visited_nodes = set()
-        parent_pointers = {}
-        bfs_order = []
-        level_reference = {}
-
-        # enqueue the starter node, visit and add to the parent_pointer
-        current_vertex = self.vert_dict[from_vertex]
-        queue.put(current_vertex)
-        visited_nodes.add(current_vertex.data)
-        # set the parent node as none
-        parent_pointers[current_vertex.data] = None
-        # to store how far from the starter node
-        level_reference[current_vertex.data] = 0
-
-        # start traversing
-        level_counter = 0
-        while not queue.empty():
-            # dequeue the current node
-            current_vertex = queue.get()
-            bfs_order.append(current_vertex.data)
-            level_counter += 1
-
-            for neighbor in current_vertex.neighbors:
-                # check if the neighbor is visited
-                if neighbor.data not in visited_nodes:
-
-                    queue.put(neighbor)
-                    visited_nodes.add(neighbor.data)
-                    parent_pointers[neighbor.data] = current_vertex.data
-                    level_reference[neighbor.data] = level_reference[current_vertex.data] + 1
-
-        return (bfs_order, level_reference)
-
-    def n_level_bfs(self, from_vertex, n_level):
-        """Find all nth level connections of 
-        
-        Args:
-            vertex (str): given vertex to find its all neighors 
-            n_level (int): certain connection level away from vertex
-
-        Returns:
-            all nodes (list): all nodes found at the nth level
-                              if there is no given level of connections raises value error
-        """
-        # check if starter node is in the graph
-        if from_vertex not in self.vert_dict:
-            raise KeyError(
-                f"The vertex {from_vertex}, you entered doesn't exist in graph!")
-
-        vertices = self.breadth_first_search_traversal(from_vertex)[1]
-        n_level_connections = []
-        max_level = max(vertices.values())
-
-        # check if vertex has given depth level of connections
-        if n_level > max_level:
-            raise ValueError(f"Current vertex has maximum level of {max_level} connections!")
-
-        for vertex in vertices:
-            if vertices[vertex] == n_level:
-                n_level_connections.append(vertex)
-
-        return n_level_connections
 
     def dfs_recursive(self, from_vertex, visited=None, order=None):
         """Traverse the graph and get all vertices using DFS algorithm
@@ -306,7 +226,10 @@ class Graph:
         # print(order)
         return order
 
-    def dfs_paths(self, from_vertex, to_vertex, visited):
+    def dfs_paths(self, from_vertex, to_vertex, visited=None):
+        """Find a path between two vertices using Depth First Search
+        (It is just a path not necessarily the shortest path.) 
+        """
         if from_vertex not in self.vert_dict or to_vertex not in self.vert_dict:
             raise KeyError(
                 "One of the given vertices does not exist in graph!")
@@ -314,7 +237,8 @@ class Graph:
         # check if you are at the location
         if from_vertex == to_vertex:
             return [from_vertex]
-
+        if visited is None:
+            visited = set()
         current_vertex = self.vert_dict[from_vertex]
         visited.add(current_vertex.data)
 
@@ -331,14 +255,24 @@ class Graph:
 
 
 def build_graph(graph: Graph, vertices, edges):
+    """Build a graph using given vertices and edges
 
-        # add the vertices
-        for vertex in vertices:
-            graph.add_vertex(vertex)
+    Args:
+        graph (Graph): graph object
+        vertices (list): list of vertices
+        edges (list): list of edges containing vertices and weights
 
-        # add the edges
-        for edge in edges:
-            # unpack the edge, because it could be len of 2 or 3
-            graph.add_edge(*edge)
+    Returns:
+        graph (Graph): graph objects containing all its vertices and edges connected
+    """
 
-        return graph
+    # add the vertices
+    for vertex in vertices:
+        graph.add_vertex(vertex)
+
+    # add the edges
+    for edge in edges:
+        # unpack the edge, and add 
+        graph.add_edge(*edge)
+
+    return graph

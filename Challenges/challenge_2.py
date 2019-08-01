@@ -19,11 +19,16 @@ def main():
     to_vertex = sys.argv[3]
 
     print(f'{seperator} Challenge 2 {seperator}')
+    
     path, path_len = graph.find_shortest_path(from_vertex, to_vertex)
+    
     if path:
         print("Verticies in shortest path: ", end="")
-        for vert in path:
-            print(vert, end=", ")
+        for i, vert in enumerate(path):
+            if i < len(path)-1:
+                print(vert, end=", ")
+            else:
+                print(vert)
         print(f"Number of edges in shortest path: {path_len}")
 
 

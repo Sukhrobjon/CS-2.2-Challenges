@@ -7,13 +7,14 @@ def main():
     filename = sys.argv[1]
 
     graph, vertices, edges = read_file(filename)
+    # builded graph object
     graph = build_graph(graph, vertices, edges)
 
     seperator = "==============================="
 
     # grab the edges and vertices from graph object
-    g_edges = graph.edge_list
-    g_vertices = graph.get_vertices()
+    # g_edges = graph.edge_list
+    # g_vertices = graph.get_vertices()
 
     from_vertex = sys.argv[2]
     to_vertex = sys.argv[3]

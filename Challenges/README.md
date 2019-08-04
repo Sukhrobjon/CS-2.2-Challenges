@@ -10,6 +10,7 @@
 
 ## General instructions
 - Your code should go in the Challenge Folder of your personal repo that you created for this class.
+- Create a separate folder for each challenge, and copy any code you are re-using from the previous challenge before modifying.  The code in each folder should only solve that challenge.
 - Your code should meet the following minimum requirements
     - meets PEP8 style guidelines
     - is well tested
@@ -38,11 +39,11 @@ G
 
 - Other files should follow best practices for code architecture (classes in a file with the class name, etc) but the structure is up to you.
 
-- You will be graded on if your code works (produces the correct output), and code quality based on the [Challenge Rubric Online - Beta Testing](https://www.makeschool.com/rubrics/UnVicmljLTQ=)
-or [Challenge Rubric Document](https://docs.google.com/document/d/1mRnSLMeuHLODGGxVI1-0AsTS7lqjNiemZCO9fo1gUzg/edit?usp=sharing)
+- You will be graded on if your code works (produces the correct output), and code quality based on the rubrics linked in each challenge.
+
 ## Challenge 1
 - Implement the Graph ADT with an adjacency list
-- Implement code to read in a graph from a text file to create an instance of the Graph ADT and use it's methods.
+- Implement code to read in a graph from a text file to create an instance of the Graph ADT and use its methods.
 
 **Input:** A graph file (can contain a directed or undirected graph with or without weights)
 `python3 challenge_1.py graph_data.txt`
@@ -73,54 +74,143 @@ Edge List:
 
 
 
-### Stretch Challenges 1
+### Stretch Challenge 1
 - Re-implement the Graph ADT using one of the [python collections](https://docs.python.org/3.6/library/collections.html#module-collections).  
 
+### Challenge 1 Rubrics
+[Challenge Rubric Online - Beta Testing](https://www.makeschool.com/rubrics/UnVicmljLTQ=)
+or [Challenge Rubric Document](https://docs.google.com/document/d/1mRnSLMeuHLODGGxVI1-0AsTS7lqjNiemZCO9fo1gUzg/edit?usp=sharing)
 
 ## Challenge 2
-Update your Graph ADT code to use Breadth First Search to compute the shortest path between two provided vertices in your graph.  
 
-**Input:** A graph file (can contain a weighted directed or weighted undirected graph), a fromVertex and a toVertex. `python3 challenge_2.py graph_data.txt 1 4`
+**Create a Challenge_2 folder in your challenge repository.  Copy any code you want to re-use from Challenge 1 to that folder before modifying**
+
+Update your Graph ADT code to use Breadth-first search to compute the shortest path between two provided vertices in your graph.  
+
+**Input:** A graph file (containing an undirected, unweighted graph), a from_vertex and a to_vertex.
+
+`python3 challenge_2.py graph_data.txt 1 5`
 
 ```
 G
-1,2,3,4
-(1,2,2)
-(1,4,7)
-(2,3,5)
-(2,4,3)
+1,2,3,4,5
+(1,2)
+(1,4)
+(2,3)
+(2,4)
+(2,5)
+(3,5)
 ```
 
 **Output:**
-The vertices in a shortest path from `fromVertex` to `toVertex` and the weight of the path.
+The vertices in a shortest path from `from_vertex` to `to_vertex` and the number of edges in that path.
 ```
-Vertices in Path: 1,2,4
-Weight of Path: 5
+Vertices in shortest path: 1,2,5
+Number of edges in shortest path: 2
 
+```
+### [Challenge 2 Rubric](https://www.makeschool.com/rubrics/UnVicmljLTk=)
 
 ## Challenge 3
-Depth First Search - Iterative
 
-### Stretch Challenges 3
-- Depth First Search - Recursive
-- Spanning Trees
+Update your Graph ADT code to do the following
+1. Implement Recursive Depth-first search to determine if there is a path between two vertices in a **directed** graph.  
+
+**Input:** A file containing a directed graph, a from_vertex and a to_vertex.
+
+`python3 challenge_3.py graph_data.txt 1 5`
+
+```
+D
+1,2,3,4,5
+(1,2)
+(1,4)
+(2,3)
+(2,4)
+(3,5)
+(5,2)
+```
+
+**Output:**
+If there is a path between the vertices (T/F) and the vertices in that path.
+```
+There exists a path between vertex 1 and 5: TRUE
+Vertices in the path: 1,2,3,5
+
+
+```
+
+### Stretch Challenges 3 : Dijkstra's and Priority Queue
+**Stretch Challenge 3.1** Implement Dijkstra's Algorithm to find the minimum weight path between two vertices in a weighted undirected graph.
+
+**Input:** A file containing a weighted undirected graph, a from_vertex and a to_vertex.
+
+`python3 challenge_3.py graph_data.txt 1 5`
+
+```
+G
+1,2,3,4,5
+(1,2,4)
+(1,4,5)
+(2,3,6)
+(2,4,9)
+(2,5,6)
+(3,5,10)
+```
+
+**Output:**
+The vertices in a minimum weight path between the vertices and the weight of that path.
+```
+
+The weight of the minimum weight path between vertex 1 and 5 is: 10
+Vertices in the path: 1,2,5
+```
+
+**Stretch Challenge 3.2** (From CS 2.1).  Implement BinaryMinHeap using a dynamic array and then implement Priory Queue using BinaryMinHeap.  See [binary heap starter code](https://github.com/Make-School-Courses/CS-2.1-Advanced-Trees-and-Sorting-Algorithms/blob/master/Code/binaryheap.py) and [priority queue starter code](https://github.com/Make-School-Courses/CS-2.1-Advanced-Trees-and-Sorting-Algorithms/blob/master/Code/priorityqueue.py) for outline.
+
+
+### [Challenge 3 Rubric](https://docs.google.com/document/d/1VHCcs3rFtrIaJRT5GWL3P-m3oagptYXuA2T9O67eJQU/preview)
 
 ## Challenge 4
-- Dijkstra's Algorithm
+For this challenge, you can choose to work in pairs (recommended) or solo.  If you work in pairs, both partners should submit an answer and clearly note who you worked with in your solution. 
+- Your solutions will be in your Challenge GitHub repo and have both a README markdown file and code file(s). 
 
-### Stretch Challenges 4 : Implement Priority Queue
-- (From CS 2.1).  Implement BinaryMinHeap using a dynamic array and then implement Priory Queue using BinaryMinHeap.  See [binary heap starter code](https://github.com/Make-School-Courses/CS-2.1-Advanced-Trees-and-Sorting-Algorithms/blob/master/Code/binaryheap.py) and [priority queue starter code](https://github.com/Make-School-Courses/CS-2.1-Advanced-Trees-and-Sorting-Algorithms/blob/master/Code/priorityqueue.py) for outline.
-- Dynamic Programming
+### Part 1: Solve the Knapsack Problem using Dynamic Programming. 
+1. In your README - Clearly define the problem. Give full credit to any references you use.
+1. In your README - Define in words, the 5 steps of DP as applied to this problem.
+1. Write a memoized recursive solution to this problem with hardcoded sample input of size 10.  You do not have to read sample data from a file. Write your code in `knapsack.py` and other files as needed.
+1. Print the sample input and solution output similar to how it is shown below (your structure for storing input may be different).
+
+```
+For this input:
+    List of items with size and value:
+    [[size1, value1],[size2,value2 ],.....[size10, value10]]
+    Size of knapsack: S
+
+The solution to the knapsack problem is to take these items
+    [[size3, value3], [size5,value5]]
+```
+
+
+### Part 2: Solve any other DP problem not discussed in class.
+Choose any other Dynamic Programming problem from this list []() or elsewhere. 
+1. In your README - Clearly define the problem. Give full credit to any references you use.
+1. In your README - Define in words, the 5 steps of DP as applied to this problem.
+1. Write a memoized recursive solution to this problem with hardcoded sample input of size 10.  You do not have to read sample data from a file. Write your code in `dynamic_program.py` and other files as needed.
+1. Print the sample input and solution output similar to how it is shown below with actual data from your problem. 
+
+```
+For this input:
+    XXXXX
+
+The solution is:
+    YYYYYYY
+```
+
+
+### [Challenge 4 Rubric](https://docs.google.com/document/d/1mRnSLMeuHLODGGxVI1-0AsTS7lqjNiemZCO9fo1gUzg/edit?usp=sharing)
+
 
 
 ## Challenge 5
-- Coloring, Scheduling
-
-### Stretch Challenges 5
-- Dynamic Programming
-
-## Challenge 6
-- Dynamic Programming
-
-### Stretch Challenges 6
-- - NP Reduction
+- Traveling Salesman Problem

@@ -60,11 +60,13 @@ class Graph:
         self.directed = directed
 
     def __iter__(self):
-        """Iterate over the vertex objects in the graph, to use sytax: for v in g"""
+        """Iterate over the vertex objects in the graph, to use sytax:
+        for v in g"""
         return iter(self.vert_dict.values())
 
     def add_vertex(self, key):
-        """Add a new vertex object to the graph with the given key and return the vertex."""
+        """Add a new vertex object to the graph with the given key and return
+        the vertex."""
 
         if key in self.vert_dict:
             print(f'Vertex {key} already exists')
@@ -83,6 +85,19 @@ class Graph:
         if key in self.vert_dict.keys():
             return key
         return None
+
+    def get_neighbors_of(self, vertex):
+        """Grabs all the neighbors of the current vertex
+
+        Args:
+            vertex (str): a given vertex
+
+        Returns:
+            vertex (Vertex): Vertex object if found
+        """
+        if vertex in self.vert_dict:
+            return self.vert_dict[vertex]
+        raise KeyError("The vertex not found in the Graph!")
 
     def add_edge(self, from_vertex, to_vertex, weight=None):
 
@@ -130,10 +145,9 @@ class Graph:
                 edges.append((v.data, w.data, v.get_edge_weight(w)))
         return edges
 
-
     def find_shortest_path(self, from_vertex, to_vertex):
         """Search for the shortest path from vertex a to b using Breadth first search
-        
+
         Args:
             from_vertex (str) : starting point on the graph
             to_vertex (str) : the distanation or end of the path
@@ -155,7 +169,8 @@ class Graph:
         # grab the start location from graph
         current_vertex = self.vert_dict[from_vertex]
 
-        # initialize the queue, visited nodes set, a dictionary to keep track of parent
+        # initialize the queue, visited nodes set, a dictionary
+        # to keep track of parent
         queue = Queue(maxsize=len(self.get_vertices()))
         seen_vertex = set()
         parent_pointers = {}
@@ -201,7 +216,6 @@ class Graph:
         # if there is no path from source to destination return -1
         return ([], -1)
 
-
     def dfs_recursive(self, from_vertex, visited=None, order=None):
         """Traverse the graph and get all vertices using DFS algorithm
         """
@@ -228,7 +242,7 @@ class Graph:
 
     def dfs_paths(self, from_vertex, to_vertex, visited=None):
         """Find a path between two vertices using Depth First Search
-        (It is just a path not necessarily the shortest path.) 
+        (It is just a path not necessarily the shortest path.)
         """
         if from_vertex not in self.vert_dict or to_vertex not in self.vert_dict:
             raise KeyError(
@@ -253,6 +267,15 @@ class Graph:
 
         return []
 
+    def is_eulerian(self):
+        """Determine if a given undirected graph is Eulerian (has an Eulerian Cycle)
+
+        Returns:
+            bool: true if graph has eulerian cycle, false otherwise
+
+        """
+        pass
+
 
 def build_graph(graph: Graph, vertices, edges):
     """Build a graph using given vertices and edges
@@ -263,7 +286,7 @@ def build_graph(graph: Graph, vertices, edges):
         edges (list): list of edges containing vertices and weights
 
     Returns:
-        graph (Graph): graph objects containing all its vertices and edges connected
+        graph (Graph): graph objects containing vertices and edges
     """
 
     # add the vertices
@@ -272,7 +295,7 @@ def build_graph(graph: Graph, vertices, edges):
 
     # add the edges
     for edge in edges:
-        # unpack the edge, and add 
+        # unpack the edge, and add
         graph.add_edge(*edge)
 
     return graph

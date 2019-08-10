@@ -6,16 +6,15 @@ def read_file(filename):
     """Read the txt file containg graph information and return them
     in a list
 
-    Args: 
+    Args:
         filename (txt): takes a text file to read from
 
     Returns:
-        graph elements (tuple): Tuple of graph object, list of vertices and edges
+        graph (tuple): graph object, list of vertices and list of edges
     """
     edges = []
     with open(filename, 'r') as file:
         for counter, line in enumerate(file):
-
             # get type of the graph
             if counter == 0:
                 graph_type = line.strip()
@@ -26,7 +25,7 @@ def read_file(filename):
                     graph = Graph(directed=True)
                 else:
                     raise ValueError(
-                        "Graph type is not specified correctly,type can be 'G' or 'D'!")
+                        "Graph type is not specified, type can be 'G' or 'D'!")
 
             # get vertices
             elif counter == 1:

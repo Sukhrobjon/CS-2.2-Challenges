@@ -268,13 +268,20 @@ class Graph:
         return []
 
     def is_eulerian(self):
-        """Determine if a given undirected graph is Eulerian (has an Eulerian Cycle)
+        """Determines if a given undirected graph is Eulerian (has an Eulerian Cycle)
 
         Returns:
             bool: true if graph has eulerian cycle, false otherwise
-
         """
-        pass
+        # check if the there is vertices
+        if not self.vert_dict:
+            return False
+        # for each vertex has to have even number of vertices
+        for vertex in self.vert_dict.values():
+            neighbors = vertex.neighbors
+            if len(neighbors) % 2 != 0 or len(neighbors) == 0:
+                return False
+        return True
 
 
 def build_graph(graph: Graph, vertices, edges):

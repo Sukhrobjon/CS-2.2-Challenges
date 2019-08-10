@@ -6,38 +6,16 @@ from graphs.read_file import read_file
 def main():
     filename = sys.argv[1]
 
+    # read from a file to grab graph properties
     graph, vertices, edges = read_file(filename)
     # builded graph object
     graph = build_graph(graph, vertices, edges)
 
     seperator = "==============================="
 
-    # grab the edges and vertices from graph object
-    # g_edges = graph.edge_list
-    # g_vertices = graph.get_vertices()
-
-    from_vertex = sys.argv[2]
-    to_vertex = sys.argv[3]
-
-    print(f'{seperator} Challenge 3 {seperator}')
-
-    path = graph.dfs_paths(from_vertex, to_vertex)
-
-    print(
-        f"There exists a path between vertex {from_vertex} and {to_vertex}: {bool(path)}")
-    if path:
-        print("Verticies in the path: ", end="")
-        for i, vert in enumerate(path[::-1]):
-            if i < len(path)-1:
-                print(vert, end=",")
-            else:
-                print(vert)
-
+    print(f'{seperator}Challenge 5: Eulerian Cycle{seperator}')
+    eulerian = graph.is_eulerian()
+    print(f"This graph is Eulerian: {eulerian}")
 
 if __name__ == "__main__":
     main()
-
-# Using your Graph ADT code, or in a completely separate program
-# (without a graph class). Determine if a given undirected graph
-# is Eulerian (has an Eulerian Cycle). Your code should be well
-# documented, tested and organized

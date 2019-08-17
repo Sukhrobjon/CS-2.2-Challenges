@@ -1,6 +1,6 @@
 #!python
 
-from graph import Vertex, Graph
+from Graphs.graph import Vertex, Graph
 import unittest
 
 

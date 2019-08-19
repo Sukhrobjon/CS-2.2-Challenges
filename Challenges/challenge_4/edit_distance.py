@@ -52,8 +52,13 @@ def edit_distance(str1, str2, m, n):
 
     return recursion_table[m][n]
 
-
 # Driver program
-str1 = "cat"
-str2 = "cut"
-print(edit_distance(str1, str2, len(str1), len(str2)))
+if __name__ == "__main__":
+    str1 = "saturday"
+    str2 = "sunday"
+    m = len(str1)
+    n = len(str2)
+    print(f"For this input: ")
+    print(f"String one: {str1}, string two: {str2}")
+    num_changes = edit_distance(str1, str2, m, n)
+    print(f"The optimal Solution is: {num_changes}")

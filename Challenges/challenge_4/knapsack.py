@@ -15,7 +15,7 @@ def knapsack(capacity, items, n):
     if (n == 0 or capacity == 0):
         return 0
     if (items[n-1][1] > capacity):
-        print(items[n-1])
+        # print(items[n-1])
         return knapsack(capacity, items, n-1)
 
     else:
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     n = len(items)
     capacity = 50
     opt_val = knapsack(capacity, items, n)
-    printing the output
+    # printing the output
     print("For this input: \nitems = ", end="")
     print(*items, sep="\n")
     print(f"Capacity of Knapsack: {capacity}")

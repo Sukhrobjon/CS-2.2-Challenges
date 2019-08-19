@@ -21,8 +21,6 @@ def knapsack(capacity, items, n):
     else:
         no_item = knapsack(capacity, items, n-1)
         in_item = items[n-1][2] + knapsack((capacity - items[n-1][1]), items, n-1)
-        print("no", no_item)
-        print("in", in_item)
         return max(in_item, no_item)
 
 
@@ -36,10 +34,10 @@ if __name__ == "__main__":
     n = len(items)
     capacity = 50
     opt_val = knapsack(capacity, items, n)
-    # printing the output
-    # print("For this input: \nitems = ", end="")
-    # print(*items, sep="\n")
-    # print(f"Capacity of Knapsack: {capacity}")
+    printing the output
+    print("For this input: \nitems = ", end="")
+    print(*items, sep="\n")
+    print(f"Capacity of Knapsack: {capacity}")
     print(f"The value of the optimal solution to the knapsack problem is V = {opt_val}")
 
     print("The items included in the knapsack for this optimal solution are")

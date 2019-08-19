@@ -5,7 +5,7 @@ import unittest
 
 
 class VertexTest(unittest.TestCase):
-    
+
     def test_init(self):
         vertex_1 = Vertex('A')
         assert vertex_1.get_id() is 'A'
@@ -19,7 +19,6 @@ class VertexTest(unittest.TestCase):
         assert vertex_2 in vertex_1.neighbors
         assert len(vertex_1.get_neighbors()) is 1
         assert vertex_1.get_edge_weight(vertex_2) is 0
-        
 
         # add another vertex with weight
         vertex_3 = 'C'

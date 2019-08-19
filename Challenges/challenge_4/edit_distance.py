@@ -3,6 +3,24 @@
 
 
 def edit_distance(str1, str2, m, n):
+    """Given two strings str1 and str2 and below operations that can performed
+    on str1. Find minimum number of edits (operations) required to convert
+    ‘str1’ into ‘str2’.
+    1.Insert
+    2.Remove
+    3.Replace
+    All of the above operations are of equal cost.
+
+    Args:
+        str1(str): First string(word)
+        str2(str): Second string(word)
+        m(int): length of 1st string
+        n(int): length of 2nd string
+
+    Returns:
+        changes(int): number of changes need to be made in order to make two
+        strings equal
+    """
     # Create a table to store results of subproblems
     dp = [[0 for x in range(n+1)] for x in range(m+1)]
 
@@ -37,5 +55,5 @@ def edit_distance(str1, str2, m, n):
 
 # Driver program
 str1 = "cat"
-str2 = "cat"
+str2 = "cut"
 print(edit_distance(str1, str2, len(str1), len(str2)))
